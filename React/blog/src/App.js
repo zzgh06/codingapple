@@ -17,8 +17,17 @@ function App() {
   // A. state는 변동사항이 생기면 state쓰는 html도 자동으로 재렌더링해줍니다
 
   let [글제목, 제목변경] = useState(['남자 코트 추천', '강남 우동맛집', '파이썬 독학']);
-  let [좋아요, 좋아요변경] = useState(0);
+  let [좋아요, 좋아요변경] = useState([0, 0, 0]);
   let [modal, setModal] = useState(false);
+  let [title, setTitle] = useState(0);
+
+  // map() 사용법
+  // 1. array 자료 갯수만큼 함수안의 코드 실행해줌
+  // 2. 함수의 파리미터(a, i)는 array 안에 있던 자료임
+  // 3. return에 뭐 적으면 array로 담아줌  
+  [1, 2, 3].map(function(a){
+    return '123456'
+  })
 
   return (
     <div className="App">
@@ -37,29 +46,53 @@ function App() {
           titleCopy.sort()
           제목변경(titleCopy);
         }}>제목순 정렬</button>  
-      <div className='list'>
-        {/* state 변경하는 법 : 등호로 변경금지, state변경함수(새로운 state) */}
+      {/* <div className='list'>
+        state 변경하는 법 : 등호로 변경금지, state변경함수(새로운 state)
         <h4>{ 글제목[0] } <span onClick={ () => { 좋아요변경(좋아요+1) }}>👍</span> { 좋아요 } </h4>
         <button onClick ={ () => { 
-          // array/object 다룰 때는 원본은 보존하는게 좋음
-          // state 변경함수 특징 : 기존 state == 신규 state 의 경우 변경안해줌.
+          array/object 다룰 때는 원본은 보존하는게 좋음
+          state 변경함수 특징 : 기존 state == 신규 state 의 경우 변경안해줌.
           let copy = [...글제목];
           copy[0] = '여자 코트 추천';
           제목변경(copy); 
           }}>수정</button>
         <p>2월 17일 발행</p>
-      </div>
-      <div className='list'>
-        <h4>{ 글제목[1] } </h4>
-        <p>2월 17일 발행</p>
-      </div>
-      <div className='list'>
+      </div> */}
+
+      {
+        글제목.map(function(data, i){
+          return (
+          // 참고 : 반복문으로 html 생성하면 key={html 마다 다른 숫자} 추가해야함
+          <div className='list' key={i}>
+
+            <h4 onClick={ () => { setModal(!modal); setTitle(i)}}>{ 글제목[i] }  
+            <span onClick={ () => { 
+              let copyLike = [...좋아요];
+              copyLike[i] = copyLike[i] + 1;
+              좋아요변경(copyLike)
+             }}>👍</span> { 좋아요[i] }
+             </h4>
+            <p>2월 17일 발행</p>
+          </div>
+          )       
+        })        
+      }
+
+      {
+        modal == true ? <Modal title={title} color={'skyblue'} 글제목={글제목} 제목변경={제목변경}/> : null
+      }
+
+      <button onClick={() => { setTitle(0)}}>글제목0</button>
+      <button onClick={() => { setTitle(1)}}>글제목1</button>
+      <button onClick={() => { setTitle(2)}}>글제목2</button>
+
+      {/* <div className='list'>
         <h4 onClick={ () => { setModal(!modal) } }>{ 글제목[2] } </h4>
         {
           modal == true ? <Modal/> : null
         }
         <p>2월 17일 발행</p>
-      </div>
+      </div> */}
       
       {/* 컴포넌트 만드는 법 */}
       {/* 1. function 만들고 */}
@@ -75,9 +108,9 @@ function App() {
 
       {/* html 중간에 조건문 쓰려면 "삼항연산자" 사용 */}
       {/* 조건식 ? 참일때 실행할 코드 : 거짓일 때 실행할 코드 */}
-      {
+      {/* {
         modal == true ? <Modal/> : null
-      }
+      } */}
 
 
     </div>
@@ -87,12 +120,22 @@ function App() {
 // (참고1)
 // return() 안에 html 병렬 기입하려면
 // 의미없는 <div> 대신 <></> 사용가능
-function Modal(){
+
+// props : 자식이 부모의 state 가져다쓰고 싶을 때
+// 부모 -> 자식 state 전송하는 방법
+// 1. <자식컴포넌트 작명={state이름}>
+// 2. props 파라미터 등록 후 props.작명 사용
+function Modal(props){
   return (
-    <div className='modal'>
-      <h4>제목</h4>
+    <div className='modal' style={{background : props.color}}>
+      <h4>{props.글제목[props.title]}</h4>
       <p>날짜</p>
       <p>상세내용</p>
+      <button onClick={ () => {
+        let copyTitle = [...props.글제목];
+        copyTitle[0] = '여자 코트 추천';
+        props.제목변경(copyTitle);
+      } }>글수정</button>
     </div>
   )
 }

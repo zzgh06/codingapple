@@ -21,7 +21,7 @@ div {
 }
 
 .modal {
-  margin-top: 20px;
+  margin: 20px 0;
   padding: 20px;
   background-color: #eee;
   text-align: left;
