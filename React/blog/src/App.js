@@ -20,6 +20,7 @@ function App() {
   let [좋아요, 좋아요변경] = useState([0, 0, 0]);
   let [modal, setModal] = useState(false);
   let [title, setTitle] = useState(0);
+  let [입력값, 압력값변경] = useState('');
 
   // map() 사용법
   // 1. array 자료 갯수만큼 함수안의 코드 실행해줌
@@ -65,13 +66,14 @@ function App() {
           // 참고 : 반복문으로 html 생성하면 key={html 마다 다른 숫자} 추가해야함
           <div className='list' key={i}>
 
-            <h4 onClick={ () => { setModal(!modal); setTitle(i)}}>{ 글제목[i] }  
-            <span onClick={ () => { 
+            <h4 onClick={ () => { setModal(!modal); setTitle(i)}}>{ 글제목[i] } 
+            <span onClick={ (e) => { 
+              e.stopPropagation()
               let copyLike = [...좋아요];
               copyLike[i] = copyLike[i] + 1;
               좋아요변경(copyLike)
-             }}>👍</span> { 좋아요[i] }
-             </h4>
+            }}>👍
+            </span> { 좋아요[i] }</h4>
             <p>2월 17일 발행</p>
           </div>
           )       
@@ -81,10 +83,6 @@ function App() {
       {
         modal == true ? <Modal title={title} color={'skyblue'} 글제목={글제목} 제목변경={제목변경}/> : null
       }
-
-      <button onClick={() => { setTitle(0)}}>글제목0</button>
-      <button onClick={() => { setTitle(1)}}>글제목1</button>
-      <button onClick={() => { setTitle(2)}}>글제목2</button>
 
       {/* <div className='list'>
         <h4 onClick={ () => { setModal(!modal) } }>{ 글제목[2] } </h4>
@@ -112,6 +110,10 @@ function App() {
         modal == true ? <Modal/> : null
       } */}
 
+      {/* onChange / onInput : <input>에 뭔가 입력시 코드실행하고 싶으면? */}
+      {/* <input>에 입력한 값 가져오는 방법 : e.target.value  */}
+      {/* <input>에 입력한 값 저장하려면 보통 변수/state에 저장 */}
+      <input onChange={(e) => { 압력값변경(e.target.value); console.log(입력값)}} />
 
     </div>
   );
