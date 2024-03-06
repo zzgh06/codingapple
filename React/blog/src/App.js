@@ -8,6 +8,8 @@ function App() {
 
   // 서버에서 가져온 실제 데이터로 가정
   let post = '강남 우동 맛집';
+  const today = new Date();
+  const formattedDate = `${today.getFullYear()}년 ${today.getMonth() + 1}월 ${today.getDate()}일`;
 
   // useState : 변수 같이 자료를 잠깐 저장하기 위한 방법
   // 1. import { useState } from 'react';
@@ -20,7 +22,7 @@ function App() {
   let [좋아요, 좋아요변경] = useState([0, 0, 0]);
   let [modal, setModal] = useState(false);
   let [title, setTitle] = useState(0);
-  let [입력값, 압력값변경] = useState('');
+  let [input, setInput] = useState('');
 
   // map() 사용법
   // 1. array 자료 갯수만큼 함수안의 코드 실행해줌
@@ -74,7 +76,16 @@ function App() {
               좋아요변경(copyLike)
             }}>👍
             </span> { 좋아요[i] }</h4>
-            <p>2월 17일 발행</p>
+            <p>작성일 : {formattedDate}</p>
+            <button onClick={()=> {
+              let deleteTitle = [...글제목];
+              // splice(start[, deleteCount[, item1[, item2[, ...]]]])
+              // start: 배열의 변경을 시작할 인덱스
+              // deleteCount: 배열에서 제거할 요소의 수.
+              // item1, item2, ... : 배열에 추가할 요소.
+              deleteTitle.splice(i, 1);
+              제목변경(deleteTitle);
+            }}>삭제</button>
           </div>
           )       
         })        
@@ -113,7 +124,23 @@ function App() {
       {/* onChange / onInput : <input>에 뭔가 입력시 코드실행하고 싶으면? */}
       {/* <input>에 입력한 값 가져오는 방법 : e.target.value  */}
       {/* <input>에 입력한 값 저장하려면 보통 변수/state에 저장 */}
-      <input onChange={(e) => { 압력값변경(e.target.value); console.log(입력값)}} />
+      <input onChange={(e) => 
+        { setInput(e.target.value); }} />
+      <button onClick={(e) => {
+        // input 값을 빌행버튼으로 눌렀을때, input useState에 있는 값을
+        // 기존의 글제목 useState 값과 input 값을 변수에 담아서
+        // 글제목 state 변경함수에 담는다.
+        // let newPost = [...글제목, input]
+        // 또는 unshift 활용
+        // unshift() 메서드는 새로운 요소를 배열의 맨 앞쪽에 추가하고, 새로운 길이를 반환
+        let newPost = [...글제목];
+        let newLike = [...좋아요];
+        {
+          input == 0 ? alert(`값을 입력해주세요`) : newPost.unshift(input), newLike.unshift(0);
+        }
+        제목변경(newPost)
+        좋아요변경(newLike)
+      }}>글발행</button>
 
     </div>
   );
