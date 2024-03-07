@@ -84,6 +84,7 @@
       // 보안 이슈가 있으니, 라이브 서버를 활용하거나 서버를 따로 만들어야함
       // 로컬에서의 JSON 파일 요청방법
       
+        // 보통 원본 데이터는 유지하고, 데이터는 복사해서 복사한 데이터를 활용(수정)하는게 좋다.
         var 전체상품 = []
         var cart = []
         // 전체 상품 데이터를 저장할 변수
@@ -100,9 +101,12 @@
             검색필터(전체상품)
             // JSON 파일의 데이터를 전역변수로 담아놓았으니 이를 **활용하여 코드를 작성하자
             console.log(전체상품)
+
+            // 상품처럼 반복되는 코드는 각각 따로 생성해주기 보다는 function으로 만들어 놓는게 재사용성이 좋다
             function 상품생성(data){
               data.forEach((data, i) => {
                   var 상품 =
+                  // 데이터를 구분할 수 있는 data-id="${data.id}" 코드를 활용하면 나중에 선택할 때, 편함.
                   `<div class="card item" data-id="${data.id}" draggable="true">
                       <img src="${data.photo}" class="card-img-top" alt="">
                       <h5 class="card-title fw-bold">${data.title}</h5>
