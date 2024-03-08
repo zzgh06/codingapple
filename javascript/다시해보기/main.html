@@ -90,7 +90,7 @@
             let userSearch = $('#user-search').val();
             // 2. 검색조건
             let filterSearch = data.filter(function(a){
-              // array에 담긴 title과 brand가 userSearch 내용를 포함
+              // array에 담긴 title과 brand가 userSearch 내용를 포함하고 있는 data를 반환
               return a.title.includes(userSearch) || a.title.includes(userSearch)
             })
             // console.log(filterSearch)
@@ -104,7 +104,7 @@
             } 
             // 일치하는 상품이 있는 경우
             else {
-              // 상품생성(filterSearch)
+              // 정규표현식으로 filterSearch에 담긴 title과 brand와 일치하는 내용을 추출하고 치환한다.
               filterSearch.forEach((data, i) => {
                 let emphasisTitle = data.title.replace(new RegExp(`(${userSearch})`, 'gi'), 
                   match => `<span style="background : yellow">${match}</span>`
@@ -114,6 +114,7 @@
                   match => `<span style="background : yellow">${match}</span>`
                 )
                 
+                // 치환한 내용으로 상품을 재생성
                 var 상품 = 
                 `<div class="product-card" data-id=${data.id}>
                   <img src="${data.photo}" alt="">
