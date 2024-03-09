@@ -57,20 +57,16 @@ nav {
   width: 60px;
 }
 
-.basket-wrap {
-  padding: 30px;
-  margin-top: 30px;
-}
-
 .shopping-basket {
   margin: 25px 0;
   padding: 25px;
   background-color: lightgray;
+  border-radius: 5px;
 }
 .shopping-basket h5 {
   font-weight: 700;
 }
-.shopping-basket .drag-box {
+.shopping-basket .basket-zone {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -80,18 +76,19 @@ nav {
   background: black;
   padding: 20px;
   background-color: black;
+  border-radius: 5px;
 }
-.shopping-basket .drag-box div {
+.shopping-basket .basket-zone div {
   padding: 15px;
   border-radius: 5px;
   background: white;
 }
-.shopping-basket .drag-box .product {
+.shopping-basket .basket-zone .product {
   width: 220px;
   margin: 20px;
   text-align: center;
 }
-.shopping-basket .drag-box .product img {
+.shopping-basket .basket-zone .product img {
   width: 100%;
   margin-bottom: 10px;
   border: 1px solid black;

@@ -62,19 +62,15 @@ nav {
   }
 }
 
-.basket-wrap {
-  padding: 30px;
-  margin-top: 30px;
-}
-
 .shopping-basket {
   margin: 25px 0;
   padding: 25px;
   background-color: lightgray;
+  border-radius: 5px;
   h5 {
     font-weight: 700;
   }
-  .drag-box {
+  .basket-zone {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -84,6 +80,7 @@ nav {
     background: black;
     padding: 20px;
     background-color: black;
+    border-radius: 5px;
     div {
       padding: 15px;
       border-radius: 5px;

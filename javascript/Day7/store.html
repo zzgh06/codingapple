@@ -162,6 +162,7 @@
             }
 
             function 장바구니담기(productId){
+              // 먼저 cart array 안에 
               let index = cart.findIndex(드래그상품 => 드래그상품.id == productId);
               console.log(index)
               if (index == -1) {
@@ -197,6 +198,7 @@
                 가격계산();
               })
             }
+
             $('.add-btn').on('click', function(e){
               let productId = e.target.dataset.id;
               console.log(productId)
@@ -212,6 +214,8 @@
               })
             })
 
+            // 드래그는 3단계
+            // 1. 드래그할 부분을 눌렀을 때
             $('.item').on('dragstart', function(e){
               e.originalEvent.dataTransfer.setData('id', e.target.dataset.id);
             })
