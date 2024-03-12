@@ -8,11 +8,12 @@ import bg from './img/bg.png';
 import data from './data';
 import Detail from './pages/detail';
 // import 여러개 하려면 import {변수1, 변수2} from '경로'
-import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom'
+import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom';
+import axios from 'axios';
 
 function App() {
 
-  let [shoes] = useState(data)
+  let [shoes, setShoes] = useState(data)
   // 1. 페이지 이동도와주는 useNavigate()
   let navigate = useNavigate();
 
@@ -44,9 +45,40 @@ function App() {
               }
             </div>
           </div>
+          <button onClick={()=>{
+            // 응용3. 버튼 누르면 '로딩중 띄우기'
+            // 로딩중 UI 띄우기
+            axios.get('https://codingapple1.github.io/shop/data2.json')
+            .then((result)=>{ 
+              console.log(result.data) 
+              let copyShoes = [...shoes, ...result.data];
+              setShoes(copyShoes)
+              // setShoes(shoes.concat(result.data))
+              console.log(copyShoes)
+              // 로딩중 UI 숨기기
+            }).catch(()=>{
+              console.log('실패')
+              // 로딩중 UI 숨기기
+            })
+
+            // 서버로 데이터 전송하는 POST 방법
+            // axios.post('/url', {name : 'kim'})
+
+            // 동시에 ajax 요청 여러개 하려면
+            // Promise.all([ axios.get('/url1'), axios.get('/url2') ])
+            // .then(() => {});
+            
+
+          }}>더보기</button>
           </>
         } />
-        <Route path='/detail' element={<Detail/>} />
+        {/* <Route path='/detail/0' element={<Detail shoes={shoes} />} />
+        <Route path='/detail/1' element={<Detail shoes={shoes} />} />
+        <Route path='/detail/2' element={<Detail shoes={shoes} />} /> */}
+        
+        {/* 페이지 여러개 만들고 싶으면 : URL파라미터 써도 됩니다 */}
+        <Route path='/detail/:id' element={<Detail shoes={shoes} />} />
+        
         <Route path='/about' element={<About/>}>
           <Route path='member' element={<div>맴버임</div>} />
           <Route path='location' element={<div>위치정보</div>} />
@@ -61,8 +93,7 @@ function App() {
         {/* '*' 경로는 모든 경로를 뜻해서 위에 만들어둔 /detail 이런게 아닌 이상한 페이지 접속시 * 경로로 안내해줍니다.  */}      
         <Route path='*' element={<div>없는 페이지요</div>} />
       </Routes>
-
-      
+        
     </div>
   );
 }
@@ -86,9 +117,10 @@ function Event(){
 
 
 function Product(props) {
+  let navigate = useNavigate();
   return (
     <div className='col-md-4'>
-      <img src={'https://codingapple1.github.io/shop/shoes'+ (props.i+1) +'.jpg'} width='80%'/>
+      <img onClick={() => { navigate('/detail/'+ (props.i))}} src={'https://codingapple1.github.io/shop/shoes'+ (props.i+1) +'.jpg'} width='80%'/>
       <h4>{props.shoes.title}</h4>
       <p>{props.shoes.price}</p>
     </div>
