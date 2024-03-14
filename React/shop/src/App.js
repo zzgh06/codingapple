@@ -1,12 +1,13 @@
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {Container, Nav, Navbar} from 'react-bootstrap';
 // html에서 src 폴더의 이미지 넣을 땐
 // import 작명 from '이미지경로'
 import bg from './img/bg.png';
 import data from './data';
 import Detail from './pages/detail';
+import Loading from './component/Loading';
 // import 여러개 하려면 import {변수1, 변수2} from '경로'
 import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom';
 import axios from 'axios';
@@ -16,6 +17,8 @@ function App() {
   let [shoes, setShoes] = useState(data)
   // 1. 페이지 이동도와주는 useNavigate()
   let navigate = useNavigate();
+  let [cnt, setCnt] = useState(0);
+  let [loading, setLoading] = useState(false);
 
   return (
     <div className="App">
@@ -45,30 +48,46 @@ function App() {
               }
             </div>
           </div>
-          <button onClick={()=>{
-            // 응용3. 버튼 누르면 '로딩중 띄우기'
-            // 로딩중 UI 띄우기
-            axios.get('https://codingapple1.github.io/shop/data2.json')
-            .then((result)=>{ 
-              console.log(result.data) 
-              let copyShoes = [...shoes, ...result.data];
-              setShoes(copyShoes)
-              // setShoes(shoes.concat(result.data))
-              console.log(copyShoes)
-              // 로딩중 UI 숨기기
-            }).catch(()=>{
-              console.log('실패')
-              // 로딩중 UI 숨기기
-            })
 
-            // 서버로 데이터 전송하는 POST 방법
-            // axios.post('/url', {name : 'kim'})
-
-            // 동시에 ajax 요청 여러개 하려면
-            // Promise.all([ axios.get('/url1'), axios.get('/url2') ])
-            // .then(() => {});
-            
-
+          {/* loading true 일때 loading 화면 보여주고, false 일때 null */}
+          {/* 헷갈린점 : 버튼 안에 적는 것은 loading에 boolean 값의 변화 */}
+          {/* loading 를 보여주는 것은 바깥에 적어야됨 */}
+          { 
+            loading ? <Loading /> : null 
+          }
+          <button className='more-btn' onClick={() => {
+            // 버튼 클릭 시 로딩 상태 변경
+            setLoading(true);
+            setCnt(cnt + 1);
+            if (cnt === 0) {
+              axios.get('https://codingapple1.github.io/shop/data2.json')
+                .then((result) => {
+                  let copyShoes = [...shoes, ...result.data]
+                  setShoes(copyShoes)
+                  setLoading(false);
+                })
+                .catch(() => {
+                  console.log('실패함')
+                  setLoading(false);
+                })
+            } else if (cnt === 1) {
+              axios.get('https://codingapple1.github.io/shop/data3.json')
+                .then((result) => {
+                  // console.log(result.data)
+                  let copyShoes = [...shoes, ...result.data]
+                  setShoes(copyShoes)
+                  setLoading(false);
+                  // document.querySelector('.more-btn').style.display = 'none';
+                })
+                .catch(() => {
+                  console.log('실패함')
+                  setLoading(false);
+                })
+            } else {
+              window.alert('더이상 상품 데이터가 존재하지 않습니다')
+              document.querySelector('.more-btn').style.display = 'none';
+              setLoading(false);
+            }
           }}>더보기</button>
           </>
         } />
