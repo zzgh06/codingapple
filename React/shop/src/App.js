@@ -1,6 +1,6 @@
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { useEffect, useState } from 'react';
+import { createContext, useEffect, useState } from 'react';
 import {Container, Nav, Navbar} from 'react-bootstrap';
 // html에서 src 폴더의 이미지 넣을 땐
 // import 작명 from '이미지경로'
@@ -12,9 +12,13 @@ import Loading from './component/Loading';
 import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom';
 import axios from 'axios';
 
+export let Context1 = createContext()
+
 function App() {
 
   let [shoes, setShoes] = useState(data)
+  let [재고, 재고변경] = useState([10, 11, 12])
+
   // 1. 페이지 이동도와주는 useNavigate()
   let navigate = useNavigate();
   let [cnt, setCnt] = useState(0);
@@ -96,7 +100,11 @@ function App() {
         <Route path='/detail/2' element={<Detail shoes={shoes} />} /> */}
         
         {/* 페이지 여러개 만들고 싶으면 : URL파라미터 써도 됩니다 */}
-        <Route path='/detail/:id' element={<Detail shoes={shoes} />} />
+        <Route path='/detail/:id' element={
+          <Context1.Provider value={{ 재고, shoes }}>
+            <Detail shoes={shoes} />
+          </Context1.Provider> 
+        } />
         
         <Route path='/about' element={<About/>}>
           <Route path='member' element={<div>맴버임</div>} />
