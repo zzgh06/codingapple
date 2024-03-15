@@ -4,7 +4,8 @@ import styled from "styled-components";
 import { Nav } from 'react-bootstrap';
 
 import { Context1 } from './../App'
-
+import { useDispatch, useSelector } from "react-redux";
+import { appendItem } from "../store/cartsSlice";
 // let Btn = styled.button`
 //   background : ${ props => props.bg };
 //   // 프로그래밍 문법 사용 가능
@@ -50,6 +51,9 @@ function Detail(props){
   let [tab, setTab] = useState(0)
 
   let [fade2, setFade2] = useState('');
+
+  // console.log(state.carts)
+  let dispatch = useDispatch()
 
   useEffect(()=>{
       let a2 =setTimeout(()=> { setFade2('end') })
@@ -112,7 +116,10 @@ function Detail(props){
           <h4 className="pt-5">{findProduct.title}</h4>
           <p>{findProduct.content}</p>
           <p>{findProduct.price}원</p>
-          <button className="btn btn-danger">주문하기</button> 
+          <button className="btn btn-danger" onClick={()=>{
+            console.log(findProduct)
+            dispatch(appendItem(findProduct))
+          }}>주문하기</button> 
         </div>
       </div>
 
