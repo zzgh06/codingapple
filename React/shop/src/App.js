@@ -11,6 +11,7 @@ import Loading from './component/Loading';
 // import 여러개 하려면 import {변수1, 변수2} from '경로'
 import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom';
 import axios from 'axios';
+import Cart from './pages/Cart'
 
 export let Context1 = createContext()
 
@@ -95,6 +96,7 @@ function App() {
           }}>더보기</button>
           </>
         } />
+        
         {/* <Route path='/detail/0' element={<Detail shoes={shoes} />} />
         <Route path='/detail/1' element={<Detail shoes={shoes} />} />
         <Route path='/detail/2' element={<Detail shoes={shoes} />} /> */}
@@ -105,6 +107,8 @@ function App() {
             <Detail shoes={shoes} />
           </Context1.Provider> 
         } />
+
+        <Route path='/cart' element={ <Cart /> } />
         
         <Route path='/about' element={<About/>}>
           <Route path='member' element={<div>맴버임</div>} />
