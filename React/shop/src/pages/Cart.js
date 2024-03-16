@@ -35,9 +35,10 @@ function Cart (){
               <td>
                 <button onClick={()=>{
                   // console.log(state.carts[i].id)
+                  // console.log(i)
                   dispatch(upCount(state.carts[i].id))
                 }}>+</button>
-                
+
                 <button onClick={()=>{
                   dispatch(downCount(state.carts[i].id))
                 }}>-</button>
