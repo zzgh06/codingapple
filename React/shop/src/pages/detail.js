@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom"
 import styled from "styled-components";
 import { Nav } from 'react-bootstrap';
 
-import { Context1 } from './../App'
+import { Context1 } from '../App'
 import { useDispatch, useSelector } from "react-redux";
 import { appendItem } from "../store/cartsSlice";
 // let Btn = styled.button`
@@ -80,6 +80,18 @@ function Detail(props){
     }
   }, [])
 
+  useEffect(()=> {
+    let 꺼낸거 = JSON.parse(localStorage.getItem('watched'))
+    // console.log(최근본상품)
+    꺼낸거.push(findProduct.id)
+    // console.log(꺼낸거)
+    let 중복제거 = new Set(꺼낸거)
+    // console.log(중복제거)
+    let 최근본상품 = Array.from(중복제거)
+    // console.log(최근본상품)
+    localStorage.setItem('watched', JSON.stringify(최근본상품))
+  },[])
+
   // useEffect(()=>{
   //   // isNaN() : isNaN() 함수는 어떤 값이 NaN(Not-A-Number(숫자가 아님))인지 판별합니다
   //   if (isNaN(num) == true){
@@ -117,7 +129,7 @@ function Detail(props){
           <p>{findProduct.content}</p>
           <p>{findProduct.price}원</p>
           <button className="btn btn-danger" onClick={()=>{
-            console.log(findProduct)
+            // console.log(findProduct)
             dispatch(appendItem(findProduct))
           }}>주문하기</button> 
         </div>

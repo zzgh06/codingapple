@@ -17,6 +17,15 @@ export let Context1 = createContext()
 
 function App() {
 
+  useEffect(()=>{
+    localStorage.setItem('watched', JSON.stringify([]))
+  },[])
+
+  let obj = {name : 'kim'}
+  localStorage.setItem('data', JSON.stringify(obj))
+  let 꺼낸거 = localStorage.getItem('data')
+  // console.log(JSON.parse(꺼낸거).name)
+
   let [shoes, setShoes] = useState(data)
   let [재고, 재고변경] = useState([10, 11, 12])
 
@@ -45,6 +54,7 @@ function App() {
         <Route path='/' element={
           <>
           <div className='main-bg' style={{ backgroundImage : `url(${bg})` }}></div>
+          <RecentlyViewedProducts />
           <div className='container'>
             <div className='row'>
               {
@@ -155,6 +165,25 @@ function Product(props) {
       <img onClick={() => { navigate('/detail/'+ (props.i))}} src={'https://codingapple1.github.io/shop/shoes'+ (props.i+1) +'.jpg'} width='80%'/>
       <h4>{props.shoes.title}</h4>
       <p>{props.shoes.price}</p>
+    </div>
+  )
+}
+
+function RecentlyViewedProducts(){
+  return (
+    <div className='recently-viewed'>
+      <div className='title' style={{color: 'white'}}>CART <p>0</p></div>
+      <div className='body'>
+        <div className='content'>
+          {/* 최근 본 상품이 보여질 곳 */}
+          <img src={'https://codingapple1.github.io/shop/shoes1.jpg'}/>
+        </div>
+        <div className='content'>
+          {/* 최근 본 상품이 보여질 곳 */}
+          <img src={'https://codingapple1.github.io/shop/shoes2.jpg'}/>
+        </div>
+      </div>
+      <div className='footer'>TOP ▲</div>
     </div>
   )
 }

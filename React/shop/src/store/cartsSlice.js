@@ -9,7 +9,6 @@ let carts = createSlice({
   reducers: {
     upCount(state, action){
       let index = state.findIndex((a)=>{ return a.id === action.payload } )
-      console.log(state)
       state[index].count++;
     },
     downCount(state, action){
@@ -18,11 +17,21 @@ let carts = createSlice({
     },
     appendItem(state, action){
       let newItem = {id : action.payload.id, name : action.payload.title, count : 1}
-      state.push(newItem)
-    }
+      // console.log(action.payload.id)
+      let index = state.findIndex((a)=>{ return a.id === action.payload.id })
+      if (index === -1){
+        state.push(newItem);
+      } else {
+        state[index].count++;
+      }
+    },
+    removeItem(state, action){
+      let index = state.findIndex((a)=>{ return a.id === action.payload })
+      state.splice(index, 1)
+    },
   }
 })
 
-export let { upCount, downCount, appendItem } = carts.actions
+export let { upCount, downCount, appendItem, removeItem } = carts.actions
 
 export default carts
