@@ -5,7 +5,7 @@ import { Nav } from 'react-bootstrap';
 
 import { Context1 } from '../App'
 import { useDispatch, useSelector } from "react-redux";
-import { appendItem } from "../store/cartsSlice";
+import { appendItem } from "../reducers/cartSlice";
 // let Btn = styled.button`
 //   background : ${ props => props.bg };
 //   // 프로그래밍 문법 사용 가능
@@ -55,6 +55,15 @@ function Detail(props){
   // console.log(state.carts)
   let dispatch = useDispatch()
 
+  useEffect(()=> {
+    let 꺼낸거 = JSON.parse(localStorage.getItem('watched'))
+    꺼낸거.push(findProduct.id)
+    // console.log(꺼낸거)
+    꺼낸거 = new Set(꺼낸거)
+    꺼낸거 = Array.from(꺼낸거)
+    localStorage.setItem('watched', JSON.stringify(꺼낸거))
+  },[])
+
   useEffect(()=>{
       let a2 =setTimeout(()=> { setFade2('end') })
     return () => {
@@ -80,17 +89,7 @@ function Detail(props){
     }
   }, [])
 
-  useEffect(()=> {
-    let 꺼낸거 = JSON.parse(localStorage.getItem('watched'))
-    // console.log(최근본상품)
-    꺼낸거.push(findProduct.id)
-    // console.log(꺼낸거)
-    let 중복제거 = new Set(꺼낸거)
-    // console.log(중복제거)
-    let 최근본상품 = Array.from(중복제거)
-    // console.log(최근본상품)
-    localStorage.setItem('watched', JSON.stringify(최근본상품))
-  },[])
+
 
   // useEffect(()=>{
   //   // isNaN() : isNaN() 함수는 어떤 값이 NaN(Not-A-Number(숫자가 아님))인지 판별합니다

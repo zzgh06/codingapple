@@ -17,15 +17,10 @@ export let Context1 = createContext()
 
 function App() {
 
-  useEffect(()=>{
-    localStorage.setItem('watched', JSON.stringify([]))
-  },[])
-
-  let obj = {name : 'kim'}
-  localStorage.setItem('data', JSON.stringify(obj))
-  let 꺼낸거 = localStorage.getItem('data')
-  // console.log(JSON.parse(꺼낸거).name)
-
+  let 꺼낸거 = JSON.parse(localStorage.getItem('watched'))
+  let 꺼낸거숫자 = 꺼낸거.map(function(number){
+    return number + 1
+  })
   let [shoes, setShoes] = useState(data)
   let [재고, 재고변경] = useState([10, 11, 12])
 
@@ -33,6 +28,14 @@ function App() {
   let navigate = useNavigate();
   let [cnt, setCnt] = useState(0);
   let [loading, setLoading] = useState(false);
+
+  useEffect(()=>{
+    console.log(꺼낸거숫자)
+    // localStorage.setItem('watched', JSON.stringify([]))
+    if (꺼낸거.length == 0){
+      localStorage.setItem('watched', JSON.stringify([]))
+    }
+  },[])
 
   return (
     <div className="App">
@@ -54,7 +57,7 @@ function App() {
         <Route path='/' element={
           <>
           <div className='main-bg' style={{ backgroundImage : `url(${bg})` }}></div>
-          <RecentlyViewedProducts />
+          <RecentlyViewedProducts 꺼낸거숫자={꺼낸거숫자}/>
           <div className='container'>
             <div className='row'>
               {
@@ -169,18 +172,18 @@ function Product(props) {
   )
 }
 
-function RecentlyViewedProducts(){
+function RecentlyViewedProducts(props){
   return (
     <div className='recently-viewed'>
       <div className='title' style={{color: 'white'}}>CART <p>0</p></div>
       <div className='body'>
         <div className='content'>
           {/* 최근 본 상품이 보여질 곳 */}
-          <img src={'https://codingapple1.github.io/shop/shoes1.jpg'}/>
+          <img src={'https://codingapple1.github.io/shop/shoes'+ props.꺼낸거숫자[props.꺼낸거숫자.length - 1] +'.jpg'}/>
         </div>
         <div className='content'>
           {/* 최근 본 상품이 보여질 곳 */}
-          <img src={'https://codingapple1.github.io/shop/shoes2.jpg'}/>
+          <img src={'https://codingapple1.github.io/shop/shoes'+ props.꺼낸거숫자[props.꺼낸거숫자.length - 2] +'.jpg'}/>
         </div>
       </div>
       <div className='footer'>TOP ▲</div>

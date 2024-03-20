@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-let carts = createSlice({
-  name : 'carts',
+let cart = createSlice({
+  name : 'cart',
   initialState : [
     {id : 0, name : 'White and Black', count : 2},
     {id : 2, name : 'Grey Yordan', count : 1}
@@ -32,6 +32,6 @@ let carts = createSlice({
   }
 })
 
-export let { upCount, downCount, appendItem, removeItem } = carts.actions
+export let { upCount, downCount, appendItem, removeItem } = cart.actions
 
-export default carts
+export default cart

@@ -1,7 +1,7 @@
 import { Table } from "react-bootstrap"
 import { useDispatch, useSelector } from "react-redux"
-import { changeName, increase } from "../store/userSlice"
-import { upCount, downCount, removeItem } from "../store/cartsSlice"
+import { changeName, increase } from "../reducers/userSlice"
+import { upCount, downCount, removeItem } from "../reducers/cartSlice"
 
 function Cart (){
 
