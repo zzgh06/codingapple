@@ -29,9 +29,13 @@ let cart = createSlice({
       let index = state.findIndex((a)=>{ return a.id === action.payload })
       state.splice(index, 1)
     },
+    status(state){
+      // console.log(state.length)
+      let cartStatus = state.length
+    }
   }
 })
 
-export let { upCount, downCount, appendItem, removeItem } = cart.actions
+export let { upCount, downCount, appendItem, removeItem, status } = cart.actions
 
 export default cart

@@ -1,18 +1,25 @@
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { createContext, useEffect, useState } from 'react';
+import { createContext, lazy, useEffect, useState, Suspense } from 'react';
 import {Container, Nav, Navbar} from 'react-bootstrap';
 // html에서 src 폴더의 이미지 넣을 땐
 // import 작명 from '이미지경로'
 import bg from './img/bg.png';
 import data from './data';
-import Detail from './pages/detail';
 import Loading from './component/Loading';
+// import Detail from './pages/detail';
+// import Cart from './pages/Cart'
 // import 여러개 하려면 import {변수1, 변수2} from '경로'
 import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom';
+import { useQuery } from 'react-query';
 import axios from 'axios';
-import Cart from './pages/Cart'
+import cart from './reducers/cartSlice.js';
+import { useDispatch } from 'react-redux';
 
+// 필요해질 때 import
+const Detail = lazy(() => import('./pages/detail.js'));
+const Cart = lazy(()=> import('./pages/Cart.js'));
+// let dispatch = useDispatch()
 export let Context1 = createContext()
 
 function App() {
@@ -30,12 +37,21 @@ function App() {
   let [loading, setLoading] = useState(false);
 
   useEffect(()=>{
-    console.log(꺼낸거숫자)
+    // console.log(꺼낸거숫자)
     // localStorage.setItem('watched', JSON.stringify([]))
     if (꺼낸거.length == 0){
       localStorage.setItem('watched', JSON.stringify([]))
     }
   },[])
+
+  let result = useQuery('작명', ()=>
+    axios.get('https://codingapple1.github.io/userdata.json')
+    .then((a)=>{ 
+      console.log('요청됨')
+      return a.data 
+    })
+  )
+
 
   return (
     <div className="App">
@@ -48,11 +64,14 @@ function App() {
             <Nav.Link onClick={() => { navigate('/detail') }}>Detail</Nav.Link>
             <Nav.Link onClick={() => { navigate('/cart') }}>Cart</Nav.Link>
           </Nav>
+          <Nav className='ms-auto'>
+            { result.isLoading ? '로딩중' : result.data.name }
+          </Nav>
         </Container>
       </Navbar>
 
 
-
+      <Suspense fallback={<div>로딩중임</div>}>
       <Routes>
         <Route path='/' element={
           <>
@@ -138,6 +157,7 @@ function App() {
         {/* '*' 경로는 모든 경로를 뜻해서 위에 만들어둔 /detail 이런게 아닌 이상한 페이지 접속시 * 경로로 안내해줍니다.  */}      
         <Route path='*' element={<div>없는 페이지요</div>} />
       </Routes>
+      </Suspense>
         
     </div>
   );
@@ -175,7 +195,7 @@ function Product(props) {
 function RecentlyViewedProducts(props){
   return (
     <div className='recently-viewed'>
-      <div className='title' style={{color: 'white'}}>CART <p>0</p></div>
+      <div className='title' style={{color: 'white'}}>CART</div>
       <div className='body'>
         <div className='content'>
           {/* 최근 본 상품이 보여질 곳 */}
@@ -186,7 +206,7 @@ function RecentlyViewedProducts(props){
           <img src={'https://codingapple1.github.io/shop/shoes'+ props.꺼낸거숫자[props.꺼낸거숫자.length - 2] +'.jpg'}/>
         </div>
       </div>
-      <div className='footer'>TOP ▲</div>
+      <div className='footer'><a href='#'>TOP ▲</a></div>
     </div>
   )
 }
