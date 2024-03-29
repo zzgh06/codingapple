@@ -1,0 +1,84 @@
+<div></div>
+<button id="버튼">버튼</button>
+
+<script>
+  /*
+  this
+  3. 기계(오브젝트 생성기계 : constructor) 안에서 쓰면 새로 생성되는 오브젝트를 뜻함
+  4. 이벤트리스너 안에서는 e.currentTarget
+  */
+
+  var 어쩌구 = {}
+  function 기계(){
+    this.이름 = 'kim' // 새로 생성되는 오브젝트(instance)
+  }
+
+  // 기계(constructor)에서 오브젝트 생산하는 법
+  // var 오브젝트 = new 기계();
+
+  // document.getElementById('버튼').addEventListener('click', function(e){
+  //   // console.log(this); // 이벤트가 동작하고 있는 요소
+  //   // console.log(e.currentTarget); 
+
+  //   // case study 1.
+  //   // 여기서의 this는 뭘까요?
+  //   // 1. 그냥 일반 함수에서의 this : window
+  //   // 2. 오브젝트 내 함수 안에서 쓰면 그 메소드를 가지고 있는 오브젝트
+  //   // ⭐ 함수가 쓰인 위치에 따라 this 값이 변함
+  //   var 어레이 = [1,2,3];
+  //   어레이.forEach(function(a){
+  //     console.log(this)
+  //   });
+  // });
+
+  // case study 2.
+  // 오브젝트 내에서 콜백함수를 쓴다면 this는 뭘까요?
+  // var 오브젝트 = {
+  //   이름들 : ['김', '이', '박'], 
+  //   함수 : function(){
+  //     console.log(this) // ◀ 위 함수를 소유한 프로젝트
+  //     오브젝트.이름들.forEach(function(){
+  //       console.log(this) // ▲ window
+  //     })
+  //   }
+  // }
+
+  // 오브젝트.함수();
+
+
+  // 함수 만드는 방법
+  // 1. function 함수(){}
+  // 2. var 함수 = function(){}
+
+  // 함수를 만드는 이유
+  // 1. 코드들을 기능으로 묶고 싶을 때
+  // 2. 입출력 기계를 만들고 싶을 때
+  
+  // function 키워드 대신 =>
+  // Arrow function 장점
+  // 1. 입출력 기계 만들 때, 직관적이여서 보기 쉬움
+  // 2. 파라미터 1개면 소괄호 생략 가능
+  // 3. 중괄호 안에 코드가 한줄이면 중괄호와 return 까지도 생략가능
+  var 함수 = a => console.log(a);
+  함수(5);
+
+  // Arrow function 예시1.
+  [1,2,3,4].forEach(a => console.log(a));
+
+  // Arrow function 예시2. 이벤트리스너
+  // 일반 이벤트리스너에선 this == e.currentTarget
+  // Arrow function 이벤트리스너에선 this == 바깥의 this 값 ◀ Arrow function 특징 때문, 바깥의 this 값을 내부에서 그대로 사용
+  // 그래서 일반 이벤트리스너처럼 this 값을 사용하고 싶을 경우, Arrow function 사용 X
+  // 만약 이벤트리스너에서 Arrow function를 사용하고 싶으면 this 대신 e.currentTarget를 사용하면됨
+  document.getElementById('버튼').addEventListener('click', (e)=>{
+    e.currentTarget;
+  });
+
+  // Arrow function 예시3. Object 안의 함수
+  var 오브젝트 = {
+    함수 : () => {
+      return this
+    }
+  }
+  오브젝트.함수();
+</script>
