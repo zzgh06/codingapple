@@ -1,6 +1,6 @@
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { createContext, lazy, useEffect, useState, Suspense } from 'react';
+import { createContext, lazy, useEffect, useState, Suspense, useTransition, useDeferredValue } from 'react';
 import {Container, Nav, Navbar} from 'react-bootstrap';
 // html에서 src 폴더의 이미지 넣을 땐
 // import 작명 from '이미지경로'
@@ -22,6 +22,8 @@ const Cart = lazy(()=> import('./pages/Cart.js'));
 // let dispatch = useDispatch()
 export let Context1 = createContext()
 
+let a = new Array(10000).fill(0)
+
 function App() {
 
   let 꺼낸거 = JSON.parse(localStorage.getItem('watched'))
@@ -35,6 +37,10 @@ function App() {
   let navigate = useNavigate();
   let [cnt, setCnt] = useState(0);
   let [loading, setLoading] = useState(false);
+
+  let [name, setName] = useState()
+  let [isPending, startTransition] = useTransition()
+  let state = useDeferredValue(name)
 
   useEffect(()=>{
     // console.log(꺼낸거숫자)
@@ -63,6 +69,21 @@ function App() {
             <Nav.Link onClick={() => { navigate('/') }}>Home</Nav.Link>
             <Nav.Link onClick={() => { navigate('/detail') }}>Detail</Nav.Link>
             <Nav.Link onClick={() => { navigate('/cart') }}>Cart</Nav.Link>
+          </Nav>
+          <Nav className='ms-auto'>
+            <div className='App'>
+              <input onChange={(e)=>{
+                  startTransition(()=>{
+                    setName(e.target.value)
+                  })
+                }}/>
+              {
+                isPending ? '로딩중' :
+                a.map((a, i)=>{
+                  return <div key={i}>{state}</div>
+                })
+              }
+            </div>
           </Nav>
           <Nav className='ms-auto'>
             { result.isLoading ? '로딩중' : result.data.name }

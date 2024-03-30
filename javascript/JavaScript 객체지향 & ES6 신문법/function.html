@@ -1,0 +1,48 @@
+<script>
+  // 함수의 default 파라미터
+  // default 파라미터에 연산 가능 b = 10 || b = 10 * 10 || b = 10 * a
+  // 함수도 입력 가능
+  // 파라미터 값을 정상적으로 넣을 경우는 발동하지 않음
+  // function 임시함수(){
+  //   return 10
+  // }
+
+  // function 더하기(a, b = 임시함수()){
+  //   console.log(a + b)
+  // }
+  // 더하기(1);
+
+  // 함수의 arguments
+  // 모든 파라미터를 한꺼번에 싸잡아서 다루고 싶을 경우
+  // arguments 사용
+  function 함수(a,b,c){
+    // console.log(a,b,c)
+    // console.log(arguments[0])
+    // ▲ 모든 파라미터를 [] 안에 넣은 변수
+
+    // 입력한 파라미터를 전부 콘솔창에 출력해주는 함수?
+    for (let i = 0; i < arguments.length; i++) {
+      console.log(arguments[i])
+    }
+  }
+  // 함수(2,2,3)
+
+
+  // Rest 파라미터
+  // rest 파라미터를 쓰면 모든 파라미터를 [] 에 보관해줌
+  //            ▼ 여기서 ... 쓰면 'rest 파라미터'
+  function 함수2(a,b,...rest){
+    // console.log(rest) // 1. 그냥 ...rest 만 썼을 경우[1, 2, 3, 4, 5, 6, 7]
+    console.log(rest) // a, b, ...rest, 이렇게 쓰면 3번째 부터 나머지를 담아줌 [3, 4, 5, 6, 7]
+  }
+  함수2(1,2,3,4,5,6,7) 
+
+  // rest vs spread
+  // 1. 함수 파라미터 자리에 붙으면 rest
+  // 2. 나머지는 spread
+  
+  // Rest 파라미터 주의점
+  // 1. 가장 뒤에 써야함
+  // 2. 두번 이상 금지 
+
+</script>

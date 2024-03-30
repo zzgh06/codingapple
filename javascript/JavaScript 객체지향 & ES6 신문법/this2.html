@@ -14,22 +14,23 @@
   }
 
   // 기계(constructor)에서 오브젝트 생산하는 법
-  // var 오브젝트 = new 기계();
+  var 오브젝트 = new 기계();
 
-  // document.getElementById('버튼').addEventListener('click', function(e){
-  //   // console.log(this); // 이벤트가 동작하고 있는 요소
-  //   // console.log(e.currentTarget); 
+  document.getElementById('버튼').addEventListener('click', function(e){
+    console.log(this); // 이벤트가 동작하고 있는 요소
+    console.log(e.currentTarget); 
+  
 
   //   // case study 1.
   //   // 여기서의 this는 뭘까요?
   //   // 1. 그냥 일반 함수에서의 this : window
   //   // 2. 오브젝트 내 함수 안에서 쓰면 그 메소드를 가지고 있는 오브젝트
   //   // ⭐ 함수가 쓰인 위치에 따라 this 값이 변함
-  //   var 어레이 = [1,2,3];
-  //   어레이.forEach(function(a){
-  //     console.log(this)
-  //   });
-  // });
+    var 어레이 = [1,2,3];
+    어레이.forEach(function(a){
+      console.log(this)
+    });
+  });
 
   // case study 2.
   // 오브젝트 내에서 콜백함수를 쓴다면 this는 뭘까요?

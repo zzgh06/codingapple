@@ -1,0 +1,65 @@
+<script>
+  // spread operator
+  // 1. array에 붙이면 대괄호를 제거해줍니다
+  // let 어레이 = ['hello', 'world'];
+  // console.log(...어레이) // hello world
+
+  // // 2. 문자에 붙이면 펼쳐줍니다
+  // let 문자 = 'hello';
+  // console.log(...문자) // 'h' 'e' 'l' 'l' 'o'
+
+  // // spread operator 쓸곳 1. 어레이 합치기 / 복사
+  // // Deep copy 할 때, 유용함(원본 배열 유지) 
+  // // reference data type(Array, Object)는 값을 공유하기 때문에 spread operator 사용
+  // let a = [1,2,3];
+  // let b = [4, 5];
+  // let c = [...a, ...b];
+  // console.log(c)
+
+  // // spread operator 쓸곳 2. 오브젝트 합치기 / 복사
+  // // let o1 = { a : 1, b : 2};
+  // // let o2 = { ...o1, c : 3};
+
+  // // 근데 카피하다가 값 중복이 일어나면
+  // // 중복된 요소 가장 뒤에 있는 걸 적용
+  // let o1 = { a : 1, b : 2};
+  // let o2 = { a : 3, ...o1 }; // { a : 1, b : 2} a : 3 뒤에 중복된 값 a : 1 이 있기 때문에 값이 a : 1로 바뀜
+
+  // console.log(o2)
+
+  // spread operator 쓸곳 3. 함수 파라미터 넣을 때
+  function 더하기(a,b,c){
+    console.log(a + b + c)
+  }
+  // 더하기(1, 2, 3)
+  let 숫자들 = [1,2,3]
+  // 예전 방법 : 그냥 더하기()함수 실행되고, 
+  // apply함수를 사용한 이유는 파라미터로 array를 집어넣을 수 있어서 
+  더하기.apply(undefined, 숫자들);
+
+  //  그러나 지금은 spread operator를 사용하면 괄호를 벗겨주기 때문에 간단하게 할 수 있음
+  더하기(...숫자들)
+
+  
+  // apply 함수 개념설명
+  // person.인사()를 person2에 적용하고 싶을 때, apply 사용
+  // person.인사.apply(person2)
+  // apply() : 함수를 옮겨와서 실행해주세요
+  let person = {
+    인사 : function(a){
+      console.log(this.name + ' 안녕' + a)
+    }
+  }
+
+  let person2 = {
+    name : '손흥민'
+  }
+
+  person.인사() // undefined안녕
+  // apply / call 비슷함
+  // 근데 apply는 파라미터를 array형태로 집어넣기 가능
+  person.인사.apply(person2, [1]) // 손흥민 안녕
+  person.인사.call(person2, 1) 
+  
+
+</script>
