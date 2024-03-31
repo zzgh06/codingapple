@@ -1,0 +1,50 @@
+<script>
+  // Array, Object는 변수에 오른쪽 값이 저장이 되는 것이 아니라, 변수에 Reference가 저장됩니다.
+  // 그 이유은 Reference data type이기 때문인데요
+  // Reference는 arr나 obj가 어디에 위치해 있습니다 라는 화살표 같은 것입니다.
+  // obj 를 예를 들면, 변수 안에는 {name:'kim'}이 저쪽에 있습니다 화살표가 저장되어 있는 것입니다.
+
+  let 변수 = 1234;
+  let arr = [1,2,3];
+  let obj = {name:'kim'};
+
+  // Primitive data type 다루기 : 복사
+  // let 이름1 = {name:'김'};
+  // let 이름2 = 이름1;
+  // 이름1.name = '박';
+  // 이름1 {name:'박'}
+  // 이름2도 {name:'박'} // 이름2는 데이터를 변경한 적이 없는데 같이 바뀜
+  // 이유는 이름1에는 {name:'김'} 이게 저장되는게 아니라
+  // {name:'김'}이 저기 있어요 라는 화살표(reference)가 저장됨
+  // 그래서 array, object 함부로 복사하면 안됨(...spread로 복사(copy))
+
+  // Primitive data type 다루기 예시 2
+  // let 이름1 = {name:'김'};
+  // let 이름2 = {name:'김'};
+
+  // console.log(이름1 == 이름2); 
+  // false : 각각의 변수에는 reference가 저장되어 있기 때문에
+
+  // Primitive data type 다루기 예시 3
+  // let 이름1 = {name:'김'};
+
+  // function 변경(obj){
+  //   obj.name = 'Park';
+  // }
+  // 변경(이름1); // {name:'Park'};
+
+  // 오브젝트를 재할당해주는 함수
+  let 이름1 = {name:'김'};
+  function 변경(obj){
+    obj = {name : 'park'}
+    console.log(obj) // {name : 'park'}
+  }
+  변경(이름1); // {name:'김'}
+  // 오브젝트를 재할당해주는 함수는 실패 안바뀜
+  // 파라미터는 변수생성 & 할당과 똑같습니다(새로운 변수와 같다)
+  // 변경(var obj = 이름1)과 마찬가지로 이름1의 reference가 저장됩니다.
+  // 이름1(변수) -> pc 메모리 {name:'김'}
+  // obj(파라미터 변수) -> pc 메모리 {name : 'park'}
+  // 이름1 = {name:'김'} 이 변경되는 것은 아니고, obj 변수에 새로운 화살표가 저장됨
+  // 그 파라미터 변수에 = {} 해봤자, 원래 이름1 오브젝트는 변화가 없음
+</script>
