@@ -1,0 +1,60 @@
+<script>
+  // let 사람 = {
+  //   name : 'Park',
+  //   age : 30,
+  //   // 함수를 만들어 object 데이터를 다루는 이유
+  //   // 1. object 자료가 복잡할 때 이득
+  //   nextAge(){
+  //     return this.age + 1 
+  //   },
+  //   // 2. object 자료 수정 시 편리
+  //   // 실수방지, 관리 가능
+  //   setAge(나이){
+  //     this.age = parseInt(나이)
+  //   }
+  // }
+
+  // 사람.nextAge();
+  // 사람.setAge("20");
+
+  // 복잡한 소괄호가 싫을 경우, set/get 키워드
+  // let 사람 = {
+  //   name : 'Park',
+  //   age : 30,
+  //   // getter / setter
+  //   // set / get 키워드 특징
+  //   // get 함수들(getter) : return 이 있어야 한다.
+  //   // set 함수들(setter) : 파라미터가 1개 있어야 한다.
+    
+  //   // get은 데이터 꺼내쓰는 함수에
+  //   get nextAge(){
+  //     return this.age + 1 
+  //   },
+  //   // set은 데이터 변경하는 함수에
+  //   set setAge(나이){
+  //     this.age = parseInt(나이)
+  //   }
+  // }
+
+  // 사람.setAge = '30';
+  // 사람.nextAge;
+
+
+  // class 에서 사용하는 get/set
+  class 사람 {
+    constructor(){
+      this.name = 'Park';
+      this.age = 20;
+    }
+    // prototype 함수들에도 get/set 가능
+    get nextAge(){
+      return this.age + 1
+    }
+    set setAge(나이){
+      this.age = parseInt(나이)
+    }
+  }
+
+  let 사람1 = new 사람();
+  
+</script>
