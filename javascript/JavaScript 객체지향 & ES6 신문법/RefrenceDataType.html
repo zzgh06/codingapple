@@ -34,12 +34,12 @@
   // 변경(이름1); // {name:'Park'};
 
   // 오브젝트를 재할당해주는 함수
-  let 이름1 = {name:'김'};
-  function 변경(obj){
-    obj = {name : 'park'}
-    console.log(obj) // {name : 'park'}
-  }
-  변경(이름1); // {name:'김'}
+  // let 이름1 = {name:'김'};
+  // function 변경(obj){
+  //   obj = {name : 'park'}
+  //   console.log(obj) // {name : 'park'}
+  // }
+  // 변경(이름1); // {name:'김'}
   // 오브젝트를 재할당해주는 함수는 실패 안바뀜
   // 파라미터는 변수생성 & 할당과 똑같습니다(새로운 변수와 같다)
   // 변경(var obj = 이름1)과 마찬가지로 이름1의 reference가 저장됩니다.
@@ -47,4 +47,13 @@
   // obj(파라미터 변수) -> pc 메모리 {name : 'park'}
   // 이름1 = {name:'김'} 이 변경되는 것은 아니고, obj 변수에 새로운 화살표가 저장됨
   // 그 파라미터 변수에 = {} 해봤자, 원래 이름1 오브젝트는 변화가 없음
+
+  var 이름1 = { name : '김' };
+
+function 변경(obj){
+  obj.name  = 'park';
+}
+
+변경(이름1);
+console.log(이름1);
 </script>

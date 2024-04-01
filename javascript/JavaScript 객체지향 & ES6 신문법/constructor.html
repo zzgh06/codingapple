@@ -1,0 +1,92 @@
+<script>
+  // constructor 문법의 용도
+  // 비슷한 object 여러개 만들 때 object를 마구 복사하고 싶을때 사용
+ 
+  // 비슷한 학생 obj 를 여러개 만들려면
+  // let 학생 = {
+  //   name : 'Kim', 
+  //   age : 15,
+  //   sayHi(){
+  //     console.log('안녕하세요 ' + this.name + ' 입니다.')
+  //   }
+  // };
+
+  // 학생.sayHi();
+  
+  // constructor라는 obj 생성기계를 만드시오
+  // constructor애서 this는 새로 생성되는 object를 뜻함
+  // this.age = 15 이렇게 새로 생성되는 object에 값 부여가능
+
+  // constructor(생성자)에도 sayHi()라는 함수를 추가하고 싶을 경우
+  function Student(이름, 나이 = 15){
+    this.name = 이름; // this : constructor에서 생성되는 object를 instance 라고 함
+    this.age = 나이;
+    this.sayHi = function(){
+      console.log('안녕하세요 ' + this.name + ' 입니다. 나이는 ' + this.age + '살 입니다.')
+    }
+  }
+  
+  // constructor가 가지고 있는 속성들을 물려받음, 이를 전문용어로 상속이라고 한다.
+  // 상속을 구현할 수 있는 또 하나의 문법 prototype
+  // constructor를 만들면 prototype이라는 속성이 자동으로 생김
+  // prototype에 값을 추가하면 모든 자식들이 물려받기 가능
+  // prototype은 함수에만 생성되는 것
+  // 내 부모 constructor의 prototype를 검사하고 싶다면 '__proto__' 사용 
+  // 응용 : __proto__를 이용해 부모님 강제 등록 가능
+  let 부모 = {name:'kim'};
+  let 자식 = {};
+  자식.__proto__ = 부모;
+
+  console.log(자식.name); // kim
+
+
+  Student.prototype.gender = '남';
+
+  // 오브젝트 출력 순서
+  // 1) constructor에 gender를 가지고 있는가? 있으면 실행
+  // 2) 없으면 constructor의 prototype가 gender를 가지고 있는가? 있으면 실행
+
+  let 학생1 = new Student('kim', 16);
+  let 학생2 = new Student('park');
+
+  학생1.sayHi();
+  학생2.sayHi();
+
+  // prototype의 동작원리 : 내장 함수는 어떻게 동작하는가
+  학생1.toString(); // 사용가능한 이유는 Object라는 부모 constructor의 prototype에 toString() 함수가 존재
+  var arr = [1,2,3];
+  var arr = new Array(1,2,3) // 실제 array 가 만들어지는 방식
+  // arr 에 sort 라는 것을 부여한 적 없음
+  // 근데 사용할 수 있는 이유는 arr 부모 constructor의 prototype가 sort를 가지고 있기 때문이다
+  // arr.sort()
+  // arr.map()
+  // arr.push()
+
+
+  // 간단 연습문제 : 쇼핑몰에 쓸 상품데이터를 오브젝트로 여러개 만들고 싶습니다. 
+  // 그래서 하드코딩해봤는데
+  // var product1 = { name : 'shirts', price : 50000 };
+  // var product2 = { name : 'pants', price : 60000 };
+  // 앞으로 몇십개를 더 만들어야해서 하드코딩은 그만두고 constructor를 만들어서 오브젝트를 뽑아내려고 합니다. 
+  
+  // Q1. 위처럼 생긴 상품오브젝트들을 뽑아낼 수 있는 constructor를 제작해보세요.
+  // 그리고 실제 상품 두개를 뽑아보십시오.
+
+  function Product(name, price){
+    this.name = name;
+    this.price = price;
+    this.부가세 = function(){
+      console.log(this.price * 0.1)
+    }
+  }
+  let product1 = new Product('shirts', 50000);
+  let product2 = new Product('pants', 60000);
+  console.log(product1, product2)
+
+  product1.부가세();
+
+  // 2. 상품마다 부가세() 라는 내부 함수를 실행하면 콘솔창에 상품가격 * 10% 만큼의 부가세금액이 출력되도록 하고 싶으면
+  // constructor를 어떻게 수정해야할까요?
+  // 예를 들면 product1.부가세() 이렇게 쓰면 콘솔창에 5000이 출력되어야합니다. 
+
+</script>
