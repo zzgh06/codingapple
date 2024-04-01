@@ -1,0 +1,36 @@
+<script>
+  // 상속기능을 구현하는 다른방법 
+  // ES5 : Object.create()
+  // Object.create(물려받을 부모 object);
+
+  // let 부모 = { name : 'kim', age : 50 };
+  // let 자식 = Object.create(부모);
+  // 자식.age = 20;
+
+  // let 손자 = Object.create(자식);
+
+  // ES6 : Class
+  class 부모 {
+    constructor(파라미터){
+      this.name = 파라미터;
+      // 함수를 추가하고 싶으면 1. constructor에 추가하던가(자식이 직접 함수를 가짐)
+      // this.sayHi = function(){console.log('hello')}
+    }
+    // 2. 이곳에 쓰던가, 여기에 쓰면 자식 오브젝트에 추가는 안되고, 부모의 prototype에 추가됨
+    sayHi(){
+      console.log('hi')
+    }
+    // class 안에 함수 여러개 추가 1
+    // satHello(){
+    //   console.log('hello')
+    // }
+  }
+  // class 안에 함수 여러개 추가 2
+  부모.prototype.satHello = function(){console.log('hello')}
+
+
+  let 자식 = new 부모('kim');
+  // 자식.__proto__; // 부모의 prototype을 출력해주세요
+  // Object.getPrototypeOf(자식); // 부모의 prototype을 출력해주세요
+  
+</script>

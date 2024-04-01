@@ -1,0 +1,39 @@
+<div></div>
+<script>
+  // extends / super 문법
+  // 유사한 class를 만들고 싶을 경우(할아버지의 속성들 그대로 물려받아서)
+  class 할아버지 {
+    constructor(name){
+      this.성 = '김';
+      this.이름 = name;
+    }
+    sayHi(){
+      console.log('안녕 저는 할아버지에요');
+    } 
+  }
+
+  let 할아버지1 = new 할아버지('만덕');
+
+  class 아버지 extends 할아버지 {
+    constructor(name){
+      // extends해서 만든 class는 this 그냥은 사용 못함
+      // super() 다음에 써야함
+      // super() : 물려받은 class의 constructor 라는 뜻
+      // 물려받은 class에서 파라미터 값으로 넘겨준 값이 있으면 해당 파라미터를
+      // constructor와 super 파라미터에 그대로 적어주면 된다.
+      super(name);
+      this.나이 = 50;
+    }
+    // super()의 다른 용도
+    // 아버지 class / 할아버지 class 둘다 sayHi() 함수 추가할 경우
+    // 부모 class의 prototype을 의미
+    // 1. constructor 안에서 super를 쓰면 부모 class 의 constructor
+    // 2. constructor 밖에서 super를 쓰면 부모 class 의 prototype을
+    sayHi(){
+      console.log('안녕 저는 아버지에요'); // '안녕 저는 아버지에요'
+      super.sayHi(); // 부모 prototype.sayHi()
+    }
+  }
+
+  let 아버지1 = new 아버지('만수');
+</script>
