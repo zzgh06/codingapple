@@ -1,0 +1,46 @@
+<script>
+  
+  // array 안에 데이터를 전부 변수에 담으려면
+  let arr = [2,3,4];
+
+  // destructuring 문법
+  // 모양만 맞춰 변수를 선언하면 변수가 생깁니다
+  // 직관적으로 변수를 작성할 수 있음
+  // let [a,b,c] = [2,3,4]; // a=2, b=3, c=4
+  // 또는
+  // let [a,b,c] = arr;
+
+  // array destructuring 할 때, 몇개를 빼먹는다면
+  // 등호로 기본값 지정 가능
+  // let [a,b,c = 10] = [2,3]
+
+  // 변수 선언만 하면 undefined가 들어감
+  // let [a,b,c = 10] = [] // a=undefined
+
+  // object 데이터를 꺼내 변수에 담으려면?
+  // 변수명을 key명과 똑같이 써야한다.
+  // 기본값 지정가능(key 값변경도 가능)
+  // let obj = {name:'kim', age:30}
+  // let {name : 이름 = 'Park', age = 31} = {name:'kim', age:30}
+
+  // 반대로 변수들을 object에 집어넣고 싶을 경우
+  // let name = 'Kim';
+  // let age = 30;
+
+  // 이전 방식
+  // let obj = {name : name, age : age};
+  
+  // ES6 - key와 value 이름이 같을 경우, 축약해도 됨
+  // let obj = {name, age};
+
+  // 함수 파라미터 만들 때도 destructuring 문법 사용가능
+  let obj = {name : 'kim', age : 30};
+
+  // object 데이터들을 파라미터로 만들고 싶은 경우
+  function 함수( {name, age} ){
+    console.log(name)
+    console.log(age)
+  }
+  함수({name : 'kim', age : 30})
+
+</script>
