@@ -1,0 +1,42 @@
+<script>
+  // Promise의 3가지 상태
+  // 1. 성공하면 <resolved>
+  // 2. 판정 대기중이면 <pending>
+  // 3. 실패하면 <reject>    
+
+  // Promise가 적용된 것들
+  // jQuery.ajax(), fetch()
+
+  let 프로미스 = new Promise(function(resolve, reject){
+    // resolve(); 성공 판정 내리는 법
+    // reject(); 실패 판정 내리는 법
+    
+    // 예시1. 어려운 연산이 끝나면 특정 코드를 실행하고 싶음
+    // let 어려운연산 = 1 + 1;
+    // resolve(어려운연산); // 성공했을 경우에 실행되는 resolve() 함수 안에 파라미터를 resolve(10) 전달해주면 프로미스.then 에 데이터를 전달함
+    // 혹은
+    // reject();
+
+    // 예시2. 1초 후에 성공하는 Promise 그리고 성공시 특정 코드를 실행하고 싶음
+    setTimeout(function(){
+      resolve();
+    }, 1000)
+  }); // 성공/실패 판정 기계
+
+  // 프로미스.then(function(){
+  //   // 프로미스가 성공할 경우, 실행할 코드
+  // }).then(function(){
+  //   // 두번째로 실행할 코드
+  //   // 옆으로 코드가 길어지지 않아서 가독성이 좋음
+  // }).catch(function(){
+  //   // 실패할 경우, 실행할 코드
+  // }).finally(function(){
+  //   // 성공이든 실패든 뭔가 일어났을 때, 실행
+  // })
+
+  프로미스.then(function(결과){
+    console.log(결과)
+  }).catch(function(){
+    console.log('실패했어요')
+  })
+</script>

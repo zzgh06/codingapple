@@ -1,0 +1,29 @@
+<script>
+  // 비동기식 처리(async) : setTimeout, 이벤트리스너, Ajax
+  // 오래걸리는 작업이 있으면 제껴두고 다른거부터 처리하는 방식
+  // ▲ 자바스크립트가 아니라 자바스크립트를 실행하는 브라우저 덕분에 가능
+  // setTimeout, 이벤트리스너, Ajax 이런 코드들을 만나면 
+  // 브라우저는 Web API라는 공간에 보내서 대기하게 만들고 solve가 될때까지 기다리다 다시 내보냄
+  // 즉, Web API 덕분에 오래걸리는 작업이 있으면 제껴두고다른거부터 처리하는 비동기식 처리가능
+
+  // 그냥 자바스크립트는 오래걸리는 연산 만나면 멈춤(=동기식 처리, synchronous)
+  // Web API와 연관된 특수한 함수들을 쓰면 작업이 오래걸리 때 다른거부터 실행가능(=비동기식 처리, asynchronous)
+
+  // JavaScript를 순차적으로 실행하려면? = 콜백함수를 사용함
+  // 콜백함수 : 함수안에 들어가는 함수, 함수 디자인 패턴일뿐
+  // console.log(1)
+  // setTimeout(function(){ console.log(2) }, 1000);
+  // addEventListener('click', function(){})
+
+  // 콜백함수를 이용한 함수 디자인
+  function 첫쩨함수(둘째함수){
+    console.log(1);
+    둘째함수();
+  }
+  function 둘쩨함수(){
+    console.log(2)
+  }
+
+  첫쩨함수(둘째함수);
+
+</script>
