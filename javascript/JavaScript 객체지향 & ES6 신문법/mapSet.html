@@ -1,0 +1,46 @@
+<script>
+  // Map 자료형 : key, value를 저장
+  // Map 자료형은 자료간의 연관성을 표현하기 위해 씁니다.
+  // Object 자료향은 자료 이름으로 글자만 가능한데, Map 자료형은 다 가능
+  // let person = new Map();
+  // person.set(100, 'kim'); // {100 => 'kim'}
+  // person.set('age', 20) // {100 => 'kim', 'age' => 20}
+
+  // // Map 에서 자료꺼내는 법
+  // // person.get('age') // 20
+
+  // // 삭제하는법
+  // // person.delete('age')
+
+  // // 자료 갯수 세는법
+  // // person.size
+
+  // // 반복문으로 Map에서 자료 꺼내는 법
+  // for (const value of person.values()) {
+  //   console.log(value)
+  // }
+
+  // Set 자료형 : 중복자료를 허용하지 않은 Array 비슷한 것
+  let 출석부 = ['john', 'tom', 'andy', 'tom'];
+
+  let 출석부2 = new Set(['john', 'tom', 'andy', 'tom']); 
+  console.log(출석부2) // {'john', 'tom', 'andy'}
+
+  // // Set 자료형에 자료 추가하기
+  // 출석부2.add('sally');
+
+  // // Set 자료형에 자료 삭제하기
+  // 출석부2.delete('sally');
+
+  // // Set 자료형에 자료 확인
+  // 출석부2.has('sally');
+
+  // // Set 자료형에 몇개
+  // 출석부2.size;
+
+  // Set 자료형 <-> Array 자료형
+  // 활용문제 : Array의 중복자료를 제거하고 싶으면
+  출석부 = [...출석부2] // spread 활용, set으로 중복자료 제거후 괄호를 벗겨 다시 []에 저장하면 다시 array로 돌아옴
+
+  
+</script>

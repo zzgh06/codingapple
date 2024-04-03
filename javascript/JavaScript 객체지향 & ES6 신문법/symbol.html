@@ -1,0 +1,29 @@
+<script>
+  // Symbol의 용도 : Object 자료형의 비밀스런 key 값
+  // 특징1. 설명이 같다고 같은 symbol이 아님
+  // 특징2. 전역 변수같은 전역 symbol 
+  // let a = Symbol.for('설명')
+  // let b = Symbol.for('설명')
+  // let a = Symbol.for('설명') == let b = a ◀ 기존 심볼을 복붙해줌
+  // Symbol.for()로 만드는 전역 심볼은 같은 설명을 가지고 있는 심볼이 이미 있으먼 기존 심볼을 복붙해줌
+  // 특징3. 기본 내장 Symbol들
+
+
+  let 심볼 = Symbol('설명')
+
+  let weight = Symbol('내 시크릿한 몸무게임')
+  let height = Symbol('원래 내 키')
+
+  let person = {name : '충현', age : 30, [weight] : 200, [height] : 172} // ◀ 이렇게 Symbol 값을 저장할 수도 있음
+  // 감춰도 두고 싶은 자료, 그러나 이런식으로 넣으면 다 공개됨, 그럴때 쓰는 것이 Symbol
+  person.weight = 100; // 출력됨
+  // person[weight] = 200; // 출력안됨 ◀ enumerable 하지 않음
+  // person[height] = 172;
+
+  for (const key in person) {
+    if (Object.hasOwnProperty.call(person, key)) {
+      console.log(person[key]); // Symbol 값은 출력되지 않음
+    }
+  }
+
+</script>
