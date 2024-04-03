@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <!-- 커스텀태그 안에서도 파라미터 문법같은거 구현 가능 -->
+  <custom-input name="아이디"></custom-input>
+  <custom-input name="비번"></custom-input>
+  <script>
+
+    // Web Component : <커스텀태그>로 길고 복잡한 HTML 축약하는 법
+    // html 중복제거, 다른 페이지에서 재활용 가능
+
+    // <label> + <input>
+    class 클래스 extends HTMLElement {
+      // 만든 태그가 HTML에 장착될 때 실행할 코드 적는 곳
+      connectedCallback(){
+        // ▼ 이런식으로 작성하면 html 생성속도 빨라짐
+        // let 변수 = document.createElement('label')
+        // this.appendChild(변수)
+
+      // ▼ 새롭게 생성될 HTML 요소
+        let name = this.getAttribute('name');
+        this.innerHTML = `<label>${name}인풋입니다</label><input>`
+      }
+      // attribute 변경감지기능 제공됨(react의 props가 변경되면 자동 재렌더링 되는 것처럼)
+      static get observedAttributes() {
+        // name 이라는 attribute가 바뀌는지 체크
+        return['name']
+      }
+      attributeChangedCallback(){ // <- 바뀌면 이거 실행해줌
+        // console.log(this.getAttribute('name'))
+        // attribute 변경될 때마다 html 재렌더링하고 싶으면
+        this.innerHTML = `<label>${name}인풋입니다</label><input>`
+      }
+    }
+
+    customElements.define('custom-input', 클래스);
+
+  </script>
+</body>
+</html>
